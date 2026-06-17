@@ -1,57 +1,69 @@
-## Two-Tier Application Deployment on AWS using Terraform & Docker
+# Two-Tier Application Deployment using Terraform, Docker and Jenkins
 
 ## Project Overview
 
-This project demonstrates the deployment of a two-tier web application architecture on AWS using Infrastructure as Code (Terraform) and containerization (Docker).
+This project demonstrates the deployment of a two-tier web application on AWS using Terraform for Infrastructure as Code (IaC), Docker for containerization, and Jenkins for CI/CD automation.
 
-The application consists of:
-
-- Frontend Tier (Web Application)
-- Backend Tier (Database Layer)
-- AWS Infrastructure Provisioned using Terraform
-- Dockerized Application Components
-- Secure Networking using VPC and Security Groups
-
-The project follows DevOps best practices by automating infrastructure provisioning, application deployment, and environment configuration.
+The infrastructure is automatically provisioned on AWS, the frontend application is containerized using Docker, and Jenkins orchestrates infrastructure deployment, application deployment, and testing.
 
 ---
 
 ## Architecture
 
-                Internet
-                     |
-             Internet Gateway
-                     |
-              Public Subnet
-                     |
-              EC2 Instance
-             (Dockerized App)
-                     |
-              Security Group
-                     |
-             Private Subnet
-                     |
-              Database Layer
+```text
+                   User
+                     │
+                     ▼
+               AWS EC2 Instance
+                     │
+        ┌────────────┴────────────┐
+        │                         │
+        ▼                         ▼
+ Dockerized Frontend App      MySQL Database
+        │                         │
+        └────────────┬────────────┘
+                     │
+             Terraform Managed
+              AWS Resources
+                     │
+                 Jenkins CI/CD
+```
 
 ---
 
-## Features
+## Project Structure
 
-- Infrastructure as Code using Terraform
-- Custom VPC Creation
-- Public and Private Subnets
-- Internet Gateway Configuration
-- Route Tables
-- Security Groups
-- EC2 Instance Provisioning
-- Docker Container Deployment
-- Database Connectivity
-- Automated Resource Creation
-- Scalable and Reusable Infrastructure
+```text
+devops_project/
+│
+├── app/
+│   └── frontend/
+│       ├── Dockerfile
+│       ├── app.js
+│       ├── index.html
+│       ├── package.json
+│       └── db-sql.sql
+│
+├── terraform/
+│   ├── .terraform.lock.hcl
+│   ├── backend.sh
+│   ├── create_infra.sh
+│   ├── deploy_apps.sh
+│   ├── frontend.sh
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── test_solution.sh
+│   ├── tfplan
+│   └── variables.tf
+│
+├── .gitignore
+├── Jenkinsfile
+└── README.md
+```
 
 ---
 
-## Tech Stack
+## Technologies Used
 
 ### Cloud Platform
 - AWS
@@ -62,115 +74,155 @@ The project follows DevOps best practices by automating infrastructure provision
 ### Containerization
 - Docker
 
-### Operating System
-- Ubuntu 22.04
+### CI/CD
+- Jenkins
+
+### Backend Database
+- MySQL
+
+### Programming Languages
+- JavaScript
+- SQL
 
 ### Version Control
 - Git
 - GitHub
 
-### Networking
-- VPC
-- Subnets
-- Route Tables
-- Internet Gateway
-- Security Groups
-
-### Database
-- MySQL
+### Operating System
+- Linux (Ubuntu)
 
 ---
 
-## Project Structure
+## Key Features
 
-project/
-│
-├── terraform/
-│ ├── provider.tf
-│ ├── variables.tf
-│ ├── vpc.tf
-│ ├── subnet.tf
-│ ├── security_group.tf
-│ ├── ec2.tf
-│ ├── outputs.tf
-│
-├── app/
-│ ├── Dockerfile
-│ ├── source-code
-│
-├── scripts/
-│ ├── setup.sh
-│
-└── README.md
+- Infrastructure provisioning using Terraform
+- Dockerized frontend application
+- Automated deployment using Jenkins Pipeline
+- Infrastructure automation scripts
+- Database integration with MySQL
+- Reproducible deployment process
+- End-to-end DevOps workflow
 
 ---
 
-## Deployment Steps
+## Terraform Components
 
-### Clone Repository
+The Terraform configuration includes:
 
-git clone <repository-url>
+- Provider Configuration
+- Infrastructure Definitions
+- Variable Management
+- Output Management
+- Automated Deployment Scripts
 
-### Initialize Terraform
+Files:
 
+- main.tf
+- variables.tf
+- outputs.tf
+
+Scripts:
+
+- create_infra.sh
+- backend.sh
+- frontend.sh
+- deploy_apps.sh
+
+---
+
+## CI/CD Pipeline
+
+The Jenkins pipeline automates:
+
+### Stage 1: Create Infrastructure
+
+- Executes Terraform scripts
+- Creates AWS resources
+- Configures networking and compute resources
+
+### Stage 2: Deploy Applications
+
+- Deploys Dockerized frontend application
+- Configures database connectivity
+
+### Stage 3: Test Solution
+
+- Executes validation scripts
+- Verifies successful deployment
+
+Pipeline File:
+
+```text
+Jenkinsfile
+```
+
+---
+
+## Deployment Workflow
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/Rahul495-ai/devops_project.git
+cd devops_project
+```
+
+2. Initialize Terraform
+
+```bash
+cd terraform
 terraform init
+```
 
-### Validate Configuration
+3. Review Infrastructure Plan
 
-terraform validate
-
-### Review Execution Plan
-
+```bash
 terraform plan
+```
 
-### Deploy Infrastructure
+4. Apply Infrastructure
 
+```bash
 terraform apply
+```
 
-### Verify Resources
+5. Deploy Application
 
-- VPC Created
-- Subnets Created
-- Security Groups Created
-- EC2 Instance Running
+```bash
+./deploy_apps.sh
+```
 
-### Deploy Docker Container
+6. Validate Deployment
 
-docker build -t two-tier-app .
-
-docker run -d -p 80:80 two-tier-app
-
----
-
-## Security Implementation
-
-- Principle of Least Privilege
-- Security Group Restrictions
-- Private Database Layer
-- Isolated Network Segmentation
-- Controlled Inbound and Outbound Traffic
-
----
-
-## Future Enhancements
-
-- CI/CD Pipeline using Jenkins
-- Kubernetes Deployment
-- Monitoring using CloudWatch
-- Infrastructure State Management using S3 Backend
-- Auto Scaling Group Integration
-- Load Balancer Configuration
+```bash
+./test_solution.sh
+```
 
 ---
 
 ## Learning Outcomes
 
-- AWS Networking Fundamentals
-- Infrastructure Automation with Terraform
+- Infrastructure as Code (IaC)
+- AWS Resource Provisioning
 - Docker Containerization
-- Cloud Deployment Best Practices
-- DevOps Workflow Implementation
-- Secure Application Deployment
+- CI/CD Pipeline Automation
+- Jenkins Pipeline Development
+- Terraform Automation
+- Application Deployment Strategies
+
+---
+
+## Resume Description
+
+### Two-Tier Application Deployment using AWS, Terraform, Docker and Jenkins
+
+- Developed and deployed a two-tier web application architecture on AWS using Terraform for Infrastructure as Code (IaC).
+- Containerized a Node.js frontend application using Docker and automated deployments through Jenkins CI/CD pipelines.
+- Implemented infrastructure automation scripts for provisioning cloud resources and application deployment.
+- Integrated MySQL database connectivity and automated validation testing for deployment reliability.
+- Reduced manual deployment effort through end-to-end automation using Terraform, Shell Scripting, Docker, and Jenkins.
+
+**Tech Stack:** AWS, Terraform, Docker, Jenkins, Node.js, MySQL, Linux, Git, GitHub
 
 ---
 
