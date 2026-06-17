@@ -212,17 +212,6 @@ terraform apply
 
 ---
 
-## Resume Description
-
-### Two-Tier Application Deployment using AWS, Terraform, Docker and Jenkins
-
-- Developed and deployed a two-tier web application architecture on AWS using Terraform for Infrastructure as Code (IaC).
-- Containerized a Node.js frontend application using Docker and automated deployments through Jenkins CI/CD pipelines.
-- Implemented infrastructure automation scripts for provisioning cloud resources and application deployment.
-- Integrated MySQL database connectivity and automated validation testing for deployment reliability.
-- Reduced manual deployment effort through end-to-end automation using Terraform, Shell Scripting, Docker, and Jenkins.
-
-**Tech Stack:** AWS, Terraform, Docker, Jenkins, Node.js, MySQL, Linux, Git, GitHub
 
 ---
 
